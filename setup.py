@@ -14,6 +14,9 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'waitress',
+    'pyramid_fanstatic',
+    'js.bootstrap==2.3.0',
+    'pyramid_beaker',
     ]
 
 setup(name='pyramid_alfresco',
@@ -40,5 +43,7 @@ setup(name='pyramid_alfresco',
       main = pyramid_alfresco:main
       [console_scripts]
       initialize_pyramid_alfresco_db = pyramid_alfresco.scripts.initializedb:main
+      [fanstatic.libraries]
+      pyramid_alfresco = pyramid_alfresco.resources:library
       """,
       )

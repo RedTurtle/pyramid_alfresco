@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <head>
+    <title>Pyramid Alfresco integration</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link rel="shortcut icon" href="${request.static_url('pyramid_alfresco:static/favicon.ico')}" />
+  </head>
+  <body>
+
+    <div class="container">
+      <form class="form-signin" action="${request.application_url}/alfresco_oauth">
+        <h3 class="form-signin-heading">Please sign in using Alfresco OAuth2.0</h3>
+        <button class="btn btn-large btn-primary" type="submit">Authorize</button>
+      </form>
+    </div> <!-- /container -->
+
+  </body>
+</html>
