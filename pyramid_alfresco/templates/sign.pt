@@ -8,12 +8,10 @@
   <body>
 
     <div class="container">
-      <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>${result}</p>
-        <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
-      </div>
-
+      <form class="form-signin" action="${login_url(request,'alfresco')}" method="POST">
+        <h3 class="form-signin-heading">Please sign in using Alfresco OAuth2.0</h3>
+        <button class="btn btn-large btn-primary" type="submit">Authorize</button>
+      </form>
     </div> <!-- /container -->
 
   </body>

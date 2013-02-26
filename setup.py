@@ -16,6 +16,7 @@ requires = [
     'waitress',
     'pyramid_fanstatic',
     'js.bootstrap==2.3.0',
+    'velruse',
     'pyramid_beaker',
     ]
 

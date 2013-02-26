@@ -7,6 +7,7 @@
 *.egg
 *.egg-info
 dist
+data
 build
 eggs
 parts
@@ -15,6 +16,7 @@ var
 sdist
 develop-eggs
 .installed.cfg
+redturtle.ini
 lib
 lib64
 
