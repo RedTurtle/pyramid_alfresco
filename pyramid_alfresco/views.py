@@ -1,5 +1,6 @@
 #import json
 from pyramid.security import remember
+from pyramid.security import forget
 from pyramid.security import authenticated_userid
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPForbidden
@@ -7,12 +8,12 @@ from pyramid.url import route_url
 from pyramid.view import view_config
 from velruse import login_url
 
-from .resources import pyramid_alfresco
+from pyramid_alfresco import resources
 
 
 @view_config(route_name='home', renderer='templates/welcome.pt', permission='view')
 def welcome(request):
-    pyramid_alfresco.need()
+    resources.unicorn.need()
     return {'login_url': login_url}
 
 
@@ -25,19 +26,21 @@ def forbidden_view(request):
     return HTTPFound(location=loc)
 
 
+@view_config(route_name='logout')
+def logout_view(request):
+    headers = forget(request)
+    loc = route_url('home', request)
+    return HTTPFound(location=loc, headers=headers)
+
+
 @view_config(route_name='login', renderer='templates/sign.pt')
 def login_view(request):
-    pyramid_alfresco.need()
+    resources.login.need()
     return {'login_url': login_url}
 
 
 @view_config(context='velruse.AuthenticationComplete')
 def login_complete_view(request):
-    #pyramid_alfresco.need()
-    #context = request.context
-    #result = {
-    #    'profile': context.profile,
-    #    'credentials': context.credentials,
-    #}
+    request.session['oauthAccessToken'] = request.context.credentials['oauthAccessToken']
     headers = remember(request, 'user')
     return HTTPFound(location=route_url('home', request), headers=headers)

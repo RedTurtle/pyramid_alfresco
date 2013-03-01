@@ -15,7 +15,8 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'pyramid_fanstatic',
-    'js.bootstrap==2.3.0',
+    'js.bootstrap==2.2.2',
+    'js.jqueryui',
     'velruse',
     'pyramid_beaker',
     ]
