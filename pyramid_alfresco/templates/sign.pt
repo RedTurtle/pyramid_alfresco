@@ -9,9 +9,9 @@
 
     <body>
         <div id="logo">
-            <img src="http://wbpreview.com/previews/WB0F35928/img/logo.png" alt="" />
+          <img src="${request.application_url}/fanstatic/pyramid_alfresco/logo.png" alt="" />
         </div>
-        <div id="loginbox">            
+        <div id="loginbox">
             <form id="loginform" class="form-vertical" action="${login_url(request,'alfresco')}" method="POST">
         <p>You don't have active Alfresco connection open. <br/>Please proceed with authorization.</p>
                 <div class="control-group">
