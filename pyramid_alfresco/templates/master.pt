@@ -30,12 +30,12 @@
       <a href="#" class="visible-phone"><i class="icon icon-file"></i> Gallery</a>
       <ul>
         <li class="active"><a href="#"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-        <li><a href="#"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-        <li><a href="#"><i class="icon icon-pencil"></i> <span>Interface elements</span></a></li>
-        <li><a href="#"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-        <li><a href="#"><i class="icon icon-th-list"></i> <span>Grid Layout</span></a></li>
+        <li><a href="#"><i class="icon icon-tint"></i> <span>Important stuff</span></a></li>
+        <li><a href="#"><i class="icon icon-pencil"></i> <span>Interfaces</span></a></li>
+        <li><a href="#"><i class="icon icon-th"></i> <span>Meetings</span></a></li>
+        <li><a href="#"><i class="icon icon-th-list"></i> <span>Reports</span></a></li>
         <li><a href="#"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a></li>
-        <li><a href="#"><i class="icon icon-inbox"></i> <span>Widgets</span></a></li>
+        <li><a href="#"><i class="icon icon-inbox"></i> <span>Settings</span></a></li>
       </ul>
     
     </div>

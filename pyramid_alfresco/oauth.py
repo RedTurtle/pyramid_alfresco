@@ -133,14 +133,15 @@ class AlfrescoProvider(object):
         if r.status_code != 200:
             raise ThirdPartyFailure("Status %s: %s" % (
                 r.status_code, r.content))
-        access_token = r.json()['access_token']
 
         profile = {}
         profile['accounts'] = [{
                 'domain':self.domain,
         }]
 
-        cred = {'oauthAccessToken': access_token}
+        cred = {'access_token': r.json()['access_token'],
+                'refresh_token': r.json()['refresh_token']}
+
         return AlfrescoAuthenticationComplete(profile=profile,
                                               credentials=cred,
                                               provider_name=self.name,

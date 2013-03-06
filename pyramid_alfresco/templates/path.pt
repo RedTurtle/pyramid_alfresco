@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       metal:use-macro="main.macros['main']"
@@ -32,33 +33,58 @@
                 <h5>${page_title}</h5>
               </div>
               <div class="widget-content">
-                <ul class="thumbnails">
-                  <tal:container repeat="child children">
-                  <li class="span2" tal:define="childPath path + '/' + child.name;
-                                                haveChildren child.getAllowableActions()['canGetChildren']">
-                      <a href="${request.application_url}/path${childPath}" class="thumbnail" tal:condition="haveChildren">
-                          <img src="http://placehold.it/140x140" alt="">
-                          <h3>${child.name}</h3>
-                      </a>
-                      <a href="${request.application_url}/details${childPath}" class="thumbnail" tal:condition="not: haveChildren">
-                          <img src="http://placehold.it/140x140" alt="">
-                          <h3>${child.name}</h3>
-                      </a>
-                      <div class="actions">
-                          <a title="" href="#"><i class="icon-pencil icon-white"></i></a>
-                          <a title="" href="#"><i class="icon-remove icon-white"></i></a>
+                <ul class="nav nav-pills">
+                  <li class="active"><a href="#contents" data-toggle="pill">Contents</a></li>
+                    <li><a href="#uploadfile" data-toggle="pill">Upload</a></li>
+                    <li><a href="#addfolder" data-toggle="pill">Add folder</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="contents">
+                        <ul class="thumbnails">
+                          <li tal:condition="len(children) == 0">Empty folder</li>  
+                          <tal:container repeat="child children">
+                          <li class="span2" tal:define="childPath path + '/' + child.name;
+                                                        haveChildren child.getAllowableActions()['canGetChildren']">
+                              <a href="${request.application_url}/path${childPath}" class="thumbnail" tal:condition="haveChildren">
+                                  <img src="http://placehold.it/140x140" alt="">
+                                  <h3>${child.name}</h3>
+                              </a>
+                              <a href="${request.application_url}/details${childPath}" class="thumbnail" tal:condition="not: haveChildren">
+                                <tal:image condition="child.properties['cmis:contentStreamMimeType'].startswith('image/')">
+                                    <img src="${request.application_url}/file${childPath}" alt="">
+                                </tal:image>
+                                <tal:notimage condition="not: child.properties['cmis:contentStreamMimeType'].startswith('image/')">
+                                  <img src="http://placehold.it/140x140" alt="">
+                                </tal:notimage>
+                                  <h3>${child.name}</h3>
+                              </a>
+                              <div class="actions">
+                                <a title="" href="${request.application_url}/delete${childPath}"><i class="icon-remove icon-white"></i></a>
+                              </div>
+                          </li>
+                            </tal:container>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="uploadfile">
+                        <form method="POST" action="/uploadFile${path}" enctype="multipart/form-data" tal:condition="actions['canCreateDocument']">
+                          <fieldset>
+                            <legend>Upload file to current folder</legend>
+                            <input type="file" name="file">
+                            <button type="submit" class="btn btn-primary" name="Upload">Upload</button>
+                          </fieldset>
+                        </form>
                       </div>
-                   </li>
-                    </tal:container>
-                </ul>
-                  <form method="POST" action="/uploadFile${path}" enctype="multipart/form-data" tal:condition="actions['canCreateDocument']">
-                    <fieldset>
-                      <label>Upload file to ${page_title}</label>
-                      <input type="file" name="file">
-                      <span class="help-block">The file will be uploaded to current folder</span>
-                      <button type="submit" class="btn" name="Upload">Upload</button>
-                    </fieldset>
-                  </form>
+                        <div class="tab-pane" id="addfolder">
+                        <form method="POST" action="/createFolder${path}" tal:condition="actions['canCreateDocument']" class="form-inline">
+                          <fieldset>
+                            <legend>Add new folder</legend>
+                            <input type="text" name="name" placeholder="Folder name..." />
+                            <input type="hidden" name="targetPath" value="${path}" />
+                            <button type="submit" class="btn btn-primary" name="Create">Add</button>
+                          </fieldset>
+                        </form>
+                      </div>
+                </div>
               </div>
             </div>
           </div>
