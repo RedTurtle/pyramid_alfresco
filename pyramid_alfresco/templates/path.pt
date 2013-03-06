@@ -51,6 +51,14 @@
                    </li>
                     </tal:container>
                 </ul>
+                  <form method="POST" action="/uploadFile${path}" enctype="multipart/form-data" tal:condition="actions['canCreateDocument']">
+                    <fieldset>
+                      <label>Upload file to ${page_title}</label>
+                      <input type="file" name="file">
+                      <span class="help-block">The file will be uploaded to current folder</span>
+                      <button type="submit" class="btn" name="Upload">Upload</button>
+                    </fieldset>
+                  </form>
               </div>
             </div>
           </div>

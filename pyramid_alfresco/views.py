@@ -1,5 +1,6 @@
 #import json
 import cmislib
+import mimetypes
 import requests
 from pyramid.security import remember
 from pyramid.security import forget
@@ -92,6 +93,21 @@ def details(request):
             'page_title': obj.name,
             'path': path,
             'object': obj}
+
+
+@view_config(route_name='uploadFile')
+def upload_file(request):
+    if 'Upload' in request.POST:
+        targetPath = "/" + request.matchdict['path']
+        repo = get_cmis_root(request)
+        targetFolder = repo.getObjectByPath(targetPath)
+        uploadedFile = request.POST.get('file')
+        mimetype, encoding = mimetypes.guess_type(uploadedFile.filename)
+        doc = targetFolder.createDocument(uploadedFile.filename,
+                                          contentFile=uploadedFile.file,
+                                          contentType=mimetype
+                                          )
+        return HTTPFound(location="/path" + targetPath)
 
 
 @view_config(context=HTTPForbidden)

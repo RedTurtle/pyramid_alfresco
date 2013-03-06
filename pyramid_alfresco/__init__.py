@@ -38,6 +38,8 @@ def main(global_config, **settings):
     config.add_route('folders', '/sites/{site}/folders')
     config.add_route('path', '/path/{path:.*}')
     config.add_route('details', '/details/{path:.*}')
+    config.add_route('createContent', '/createContent/{path:.*}')
+    config.add_route('uploadFile', '/uploadFile/{path:.*}')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
     config.add_route('oauth', '/alfresco_oauth')
