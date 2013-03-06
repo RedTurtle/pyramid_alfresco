@@ -19,6 +19,7 @@ requires = [
     'js.jqueryui',
     'velruse',
     'pyramid_beaker',
+    'cmislib'
     ]
 
 setup(name='pyramid_alfresco',

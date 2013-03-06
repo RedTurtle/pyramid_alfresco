@@ -1,0 +1,46 @@
+<html lang="en" html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="main.macros['main']"
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+
+  <tal:block metal:fill-slot="main">
+      <div id="content-header">
+        <h1>Sites</h1>
+      </div>
+      <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+        <a href="#" class="current">Sites</a>
+      </div>
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+              <div class="widget-title">
+                <span class="icon">
+                  <i class="icon-globe"></i>
+                </span>
+                <h5>Sites</h5>
+              </div>
+              <div class="widget-content">
+                <ul class="thumbnails">
+                  <tal:entries repeat="site sites">
+                      <li class="span2">
+                      <a href="${request.application_url}/path/sites/${site.name}" class="btn btn-large">
+                        ${site.title}
+                        </a>
+                      </li>
+                  </tal:entries>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row-fluid">
+          <div id="footer" class="span12" style="display:none">
+            2012 &copy; Unicorn Admin. Brought to you by <a href="https://wrapbootstrap.com/user/diablo9983">diablo9983</a>
+          </div>
+        </div>
+      </div>
+      </tal:block>
+</html>

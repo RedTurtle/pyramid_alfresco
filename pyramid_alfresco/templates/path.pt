@@ -1,0 +1,66 @@
+<html lang="en" html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="main.macros['main']"
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+
+  <tal:block metal:fill-slot="main">
+      <div id="content-header">
+        <h1>Paths</h1>
+      </div>
+      <?python
+      plist = path.split('/')
+      breadcrumbs = []
+      for i in range(len(plist)):
+          if i == 0:
+            breadcrumbs.append('<a href="/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>')
+          elif i == len(plist) - 1:
+            breadcrumbs.append('<a href="#" class="current">' + plist[i] + '</a>')
+          else:
+            breadcrumbs.append('<a href="/path' + '/'.join(plist[:i+1]) + '">' + plist[i] + '</a>')
+      ?>
+      <div id="breadcrumb">
+        ${structure: ' / '.join(breadcrumbs)}
+      </div>
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+              <div class="widget-title">
+                <span class="icon">
+                  <i class="icon-picture"></i>
+                </span>
+                <h5>${page_title}</h5>
+              </div>
+              <div class="widget-content">
+                <ul class="thumbnails">
+                  <tal:container repeat="child children">
+                  <li class="span2" tal:define="childPath path + '/' + child.name;
+                                                haveChildren child.getAllowableActions()['canGetChildren']">
+                      <a href="${request.application_url}/path${childPath}" class="thumbnail" tal:condition="haveChildren">
+                          <img src="http://placehold.it/140x140" alt="">
+                          <h3>${child.name}</h3>
+                      </a>
+                      <a href="${request.application_url}/details${childPath}" class="thumbnail" tal:condition="not: haveChildren">
+                          <img src="http://placehold.it/140x140" alt="">
+                          <h3>${child.name}</h3>
+                      </a>
+                      <div class="actions">
+                          <a title="" href="#"><i class="icon-pencil icon-white"></i></a>
+                          <a title="" href="#"><i class="icon-remove icon-white"></i></a>
+                      </div>
+                   </li>
+                    </tal:container>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row-fluid">
+          <div id="footer" class="span12" style="display:none">
+            2012 &copy; Unicorn Admin. Brought to you by <a href="https://wrapbootstrap.com/user/diablo9983">diablo9983</a>
+          </div>
+        </div>
+      </div>
+      </tal:block>
+</html>

@@ -1,0 +1,58 @@
+<html lang="en" html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="main.macros['main']"
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+
+  <tal:block metal:fill-slot="main">
+      <div id="content-header">
+        <h1>Paths</h1>
+      </div>
+      <?python
+      plist = path.split('/')
+      breadcrumbs = []
+      for i in range(len(plist)):
+          if i == 0:
+            breadcrumbs.append('<a href="/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>')
+          elif i == len(plist) - 1:
+            breadcrumbs.append('<a href="#" class="current">' + plist[i] + '</a>')
+          else:
+            breadcrumbs.append('<a href="/path' + '/'.join(plist[:i+1]) + '">' + plist[i] + '</a>')
+      ?>
+      <div id="breadcrumb">
+        ${structure: ' / '.join(breadcrumbs)}
+      </div>
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+              <div class="widget-title">
+                <span class="icon">
+                  <i class="icon-picture"></i>
+                </span>
+                <h5>${page_title}</h5>
+              </div>
+              <div class="widget-content">
+                <dl class="dl-horizontal">
+                  <dt>Name:</dt><dd>${object.name}</dd>
+                  <dt>Content Type:</dt><dd> ${object.properties['cmis:objectTypeId']}</dd>
+                    <span tal:condition="object.getAllowableActions()['canGetContentStream']">
+                        <dt>File Type:</dt><dd> ${object.properties['cmis:contentStreamMimeType']}</dd>
+                        <dt>Size:</dt><dd> ${object.properties['cmis:contentStreamLength']}</dd>
+                        <dt>Link: </dt><dd><a href="/file${path}">Download</a></dd>
+                    </span>
+                    <dt>Created:</dt><dd> ${object.properties['cmis:creationDate']} by ${object.properties['cmis:createdBy']}</dd>
+                    <dt>Modified:</dt><dd> ${object.properties['cmis:lastModificationDate']} by ${object.properties['cmis:lastModifiedBy']}</dd>   
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row-fluid">
+          <div id="footer" class="span12" style="display:none">
+            2012 &copy; Unicorn Admin. Brought to you by <a href="https://wrapbootstrap.com/user/diablo9983">diablo9983</a>
+          </div>
+        </div>
+      </div>
+      </tal:block>
+</html>
