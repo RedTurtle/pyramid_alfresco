@@ -22,15 +22,30 @@
                 <h5>Sites</h5>
               </div>
               <div class="widget-content">
-                <ul class="thumbnails">
+
+              <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Site name</th>
+                      <th>Created by</th>
+                      <th>Creation date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                   <tal:entries repeat="site sites">
-                      <li class="span2">
-                      <a href="${request.application_url}/path/sites/${site.name}" class="btn btn-large">
+                    <tr>
+                      <td>
+                      <a href="${request.application_url}/path/sites/${site.name}">
                         ${site.title}
                         </a>
-                      </li>
+                      </td>
+                      <td>${site.getProperties().get('cmis:createdBy')}</td>
+                      <td>${site.getProperties().get('cmis:creationDate')}</td>
+                    </tr>
                   </tal:entries>
-                </ul>
+                  </tbody>
+                </table>
+
               </div>
             </div>
           </div>

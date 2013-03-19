@@ -40,30 +40,41 @@
                   </ul>
                   <div class="tab-content">
                     <div class="tab-pane active" id="contents">
-                        <ul class="thumbnails">
-                          <li tal:condition="len(children) == 0">Empty folder</li>  
+
+                      <span tal:condition="len(children) == 0">Empty folder</span>
+
+                      <table class="table table-bordered table-striped table-hover" tal:condition="len(children) > 0">
+                          <thead>
+                            <tr>
+                              <th>Title</th>
+                              <th>Created by</th>
+                              <th>Creation date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
                           <tal:container repeat="child children">
-                          <li class="span2" tal:define="childPath path + '/' + child.name;
-                                                        haveChildren child.getAllowableActions()['canGetChildren']">
-                              <a href="${request.application_url}/path${childPath}" class="thumbnail" tal:condition="haveChildren">
-                                  <img src="http://placehold.it/140x140" alt="">
-                                  <h3>${child.name}</h3>
+                          <tr tal:define="childPath path + '/' + child.name;
+                            haveChildren child.getAllowableActions()['canGetChildren']">
+                            <td>
+                              <a href="${request.application_url}/path${childPath}" tal:condition="haveChildren">
+                                ${child.name}
                               </a>
-                              <a href="${request.application_url}/details${childPath}" class="thumbnail" tal:condition="not: haveChildren">
+                              <a href="${request.application_url}/details${childPath}" tal:condition="not: haveChildren">
                                 <tal:image condition="child.properties['cmis:contentStreamMimeType'].startswith('image/')">
                                     <img src="${request.application_url}/file${childPath}" alt="">
                                 </tal:image>
                                 <tal:notimage condition="not: child.properties['cmis:contentStreamMimeType'].startswith('image/')">
                                   <img src="http://placehold.it/140x140" alt="">
                                 </tal:notimage>
-                                  <h3>${child.name}</h3>
-                              </a>
-                              <div class="actions">
-                                <a title="" href="${request.application_url}/delete${childPath}"><i class="icon-remove icon-white"></i></a>
-                              </div>
-                          </li>
+                                  ${child.name}
+                                </a>
+                                </td>
+                                <td>${child.getProperties().get('cmis:createdBy')}</td>
+                                <td>${child.getProperties().get('cmis:creationDate')}</td>
+                              </tr>
                             </tal:container>
-                          </ul>
+                  </tbody>
+                </table>
                         </div>
                         <div class="tab-pane" id="uploadfile">
                         <form method="POST" action="/uploadFile${path}" enctype="multipart/form-data" tal:condition="actions['canCreateDocument']">
