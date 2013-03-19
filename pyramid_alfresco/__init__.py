@@ -4,6 +4,8 @@ from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.security import Authenticated
 from pyramid.security import Allow
+from sqlalchemy import engine_from_config
+from .models import DBSession, Base
 
 
 class Root(object):
@@ -19,6 +21,9 @@ def groupfinder(userid, request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    engine = engine_from_config(settings, 'sqlalchemy.')
+    DBSession.configure(bind=engine)
+    Base.metadata.bind = engine
     session_factory = session_factory_from_settings(settings)
     authn_policy = AuthTktAuthenticationPolicy('supersecret',
                                                callback=groupfinder)
@@ -42,6 +47,11 @@ def main(global_config, **settings):
     config.add_route('file', '/file/{path:.*}')
     config.add_route('createFolder', '/createFolder/{path:.*}')
     config.add_route('uploadFile', '/uploadFile/{path:.*}')
+
+    config.add_route('docs_home', '/docs')
+    config.add_route('docs_details', '/docs/details/{id:.*}')
+    config.add_route('createDoc', '/docs/createDoc')
+
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
     config.add_route('oauth', '/alfresco_oauth')

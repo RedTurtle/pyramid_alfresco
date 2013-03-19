@@ -17,6 +17,7 @@ requires = [
     'pyramid_fanstatic',
     'js.bootstrap==2.2.2',
     'js.jqueryui',
+    'js.tinymce',
     'velruse',
     'pyramid_beaker',
     'cmislib'
@@ -45,7 +46,7 @@ setup(name='pyramid_alfresco',
       [paste.app_factory]
       main = pyramid_alfresco:main
       [console_scripts]
-      initialize_pyramid_alfresco_db = pyramid_alfresco.scripts.initializedb:main
+      initdb = pyramid_alfresco.initdb:main
       [fanstatic.libraries]
       pyramid_alfresco = pyramid_alfresco.resources:library
       """,

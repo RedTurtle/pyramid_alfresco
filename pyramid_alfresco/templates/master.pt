@@ -29,14 +29,15 @@
     <div id="sidebar">
       <a href="#" class="visible-phone"><i class="icon icon-file"></i> Gallery</a>
       <ul>
-        <li class="active"><a href="#"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-<!--        <li><a href="#"><i class="icon icon-tint"></i> <span>Important stuff</span></a></li>
+        <li class="active"><a href="${request.application_url}"><i class="icon icon-home"></i> <span>Alfreso repository</span></a></li>
+        <li><a href="${request.application_url}/docs"><i class="icon icon-tint"></i> <span>Super documents</span></a></li>
+<!--
         <li><a href="#"><i class="icon icon-pencil"></i> <span>Interfaces</span></a></li>
         <li><a href="#"><i class="icon icon-th"></i> <span>Meetings</span></a></li>
         <li><a href="#"><i class="icon icon-th-list"></i> <span>Reports</span></a></li>
         <li><a href="#"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a></li>
         <li><a href="#"><i class="icon icon-inbox"></i> <span>Settings</span></a></li>
-        -->        
+        -->
       </ul>
     
     </div>

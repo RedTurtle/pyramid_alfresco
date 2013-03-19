@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  metal:use-macro="main.macros['main']"
+  xmlns:metal="http://xml.zope.org/namespaces/metal">
+
+  <tal:block metal:fill-slot="main">
+
+  <div id="content-header">
+    <h1>Super documents</h1>
+  </div>
+  <div id="breadcrumb">
+    <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+    <a href="#" class="current">Documents</a>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title">
+            <span class="icon">
+              <i class="icon-globe"></i>
+            </span>
+            <h5>Documents</h5>
+          </div>
+          <div class="widget-content">
+
+            <ul class="nav nav-pills">
+              <li class="active"><a href="#contents" data-toggle="pill">Contents</a></li>
+              <li><a href="#adddoc" data-toggle="pill">Add doc</a></li>
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="contents">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Document name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tal:entries repeat="doc docs">
+                    <tr>
+                      <td>
+                        <a href="${request.application_url}/docs/details/${doc.id}">
+                          ${doc.name}
+                        </a>
+                      </td>
+                    </tr>
+                    </tal:entries>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="adddoc">
+                <form method="POST" action="/docs/createDoc" enctype="multipart/form-data" class="form-horizontal">
+                  <legend>Add new document</legend>
+                  <div class="control-group">
+                    <label class="control-label" for="name">Name</label>
+                    <div class="controls">
+                      <input type="text" name="name" placeholder="Document name..." />
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="text">Text</label>
+                    <div class="controls">
+                      <textarea name="text" style="width:100%"></textarea>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="file">Attachment</label>
+                    <div class="controls">
+                      <input type="file" name="file">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" class="btn btn-primary" name="Create">Add</button>
+                  </div></div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div id="footer" class="span12" style="display:none">
+        2012 &copy; Unicorn Admin. Brought to you by <a href="https://wrapbootstrap.com/user/diablo9983">diablo9983</a>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" >
+        tinyMCE.init({
+              mode : "textareas",
+              theme : "simple"   //(n.b. no trailing comma, this will be critical as you experiment later)
+        });
+  </script>
+  </tal:block>
+</html>
