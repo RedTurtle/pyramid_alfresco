@@ -35,7 +35,9 @@
                 <dl class="dl-horizontal">
                   <dt>Name:</dt><dd>${object.name}</dd>
                   <dt>Text:</dt><dd tal:content="structure object.text"></dd>
-                  <dt>Download:</dt><dd><a href="${request.application_url}/file${object.attachment}">Link</a></dd>
+                  <tal:attachment condition="object.attachment">
+                    <dt>Download:</dt><dd><a href="${request.application_url}/file${object.attachment}">Link</a></dd>
+                  </tal:attachment>
                 </dl>
               </div>
             </div>

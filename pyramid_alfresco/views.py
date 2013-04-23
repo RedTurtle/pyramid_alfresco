@@ -45,18 +45,21 @@ def create_document(request):
     if 'Create' in request.POST:
         name = request.POST.get('name')
         text = request.POST.get('text')
-        uploadedFile = request.POST.get('file')
-        mimetype, encoding = mimetypes.guess_type(uploadedFile.filename)
         repo = get_cmis_root(request)
-        path = '/sites/plone'
+        path = '/sites/plone/documentlibrary'
         folder = repo.getObjectByPath(path.encode('utf-8'))
         folder.createFolder(name)
         path += '/%s' % name
-        document_folder = repo.getObjectByPath(path.encode('utf-8'))
-        document_folder.createDocument(uploadedFile.filename,
-                                       contentFile=uploadedFile.file,
-                                       contentType=mimetype)
-        doc = Document(name=name, text=text, attachment='%s/%s' % (path, uploadedFile.filename))
+        uploadedFile = request.POST.get('file')
+        if uploadedFile:
+            mimetype, encoding = mimetypes.guess_type(uploadedFile.filename)
+            document_folder = repo.getObjectByPath(path.encode('utf-8'))
+            document_folder.createDocument(uploadedFile.filename,
+                                           contentFile=uploadedFile.file,
+                                           contentType=mimetype)
+            doc = Document(name=name, text=text, attachment='%s/%s' % (path, uploadedFile.filename))
+        else:
+            doc = Document(name=name, text=text)
         DBSession.add(doc)
         return HTTPFound(location="/docs" )
 
