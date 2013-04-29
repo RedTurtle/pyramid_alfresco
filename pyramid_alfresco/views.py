@@ -51,7 +51,7 @@ def create_document(request):
         folder.createFolder(name)
         path += '/%s' % name
         uploadedFile = request.POST.get('file')
-        if uploadedFile:
+        if uploadedFile != u'':
             mimetype, encoding = mimetypes.guess_type(uploadedFile.filename)
             document_folder = repo.getObjectByPath(path.encode('utf-8'))
             document_folder.createDocument(uploadedFile.filename,
